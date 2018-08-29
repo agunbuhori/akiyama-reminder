@@ -89,7 +89,11 @@ export default class Maintenance extends Component {
                                                             <Text style={styles.periodeDateText}>{global.formatDateMonth(periode.item.date)}</Text>
                                                         </View>
                                                     </View>
-                                                    <View style={styles.periodeServices}></View>
+                                                    <View style={styles.periodeServices}>
+                                                        {periode.item.services.map((service, index) => {
+                                                            return <Text key={index}>{service}</Text>
+                                                        })}
+                                                    </View>
                                                 </Ripple>
                                             }
                                         />
@@ -153,10 +157,14 @@ const styles = StyleSheet.create({
         borderRadius: global.borderRadius,
         backgroundColor: 'white',
         borderWidth: global.borderWidth,
-        borderColor: global.borderColor
+        borderColor: global.borderColor,
+        flexDirection: 'row'
     },
     periodeNumberDate: {
         width: '20%',
+        paddingRight: 10,
+        borderRightWidth: 1,
+        borderRightColor: global.borderColor
     },
     periodeNumber: {
         height: 25,
@@ -179,10 +187,11 @@ const styles = StyleSheet.create({
         borderBottomRightRadius: global.borderRadius,
     },
     periodeDateText: {
-        fontSize: 12,
+        fontSize: 11,
         fontWeight: 'bold'
     },
     periodeServices: {
-        
+        width: '80%',
+        paddingLeft: 10,
     }
 });

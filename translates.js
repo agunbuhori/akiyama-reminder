@@ -10,5 +10,6 @@ export default translates = {
     expired: "に期限切れ",
     username: "ユーザー名",
     password: "パスワード",
-    periode_text: "ヶ月"
+    periode_text: "ヶ月",
+    more: 'もっと'
 }

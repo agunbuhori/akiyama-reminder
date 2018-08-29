@@ -8,6 +8,7 @@ import Home from './Home';
 import Event from './Event';
 import Coupon from './Coupon';
 import Schedule from './Schedule';
+import More from './More';
 
 const MenuIcon = (props) => ({
     render() {
@@ -49,6 +50,15 @@ const MenuNavigator = createBottomTabNavigator({
             tabBarLabel: global.translate('schedule'),
             tabBarIcon: ({ tintColor }) => (
                 <MenuIcon tintColor={tintColor} icon="calendar" />
+            )
+        }
+    },
+    More: {
+        screen: More,
+        navigationOptions: {
+            tabBarLabel: global.translate('more'),
+            tabBarIcon: ({ tintColor }) => (
+                <MenuIcon tintColor={tintColor} icon="menu" />
             )
         }
     },

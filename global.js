@@ -14,19 +14,19 @@ export default global = {
     primaryColorLight: '#CACAE0',
     secondaryColor: '#282FBA',
     fontColor: '#333',
-    borderColor: '#eee',
-    borderWidth: 0.5,
+    borderColor: '#e6eaee',
+    borderWidth: 1,
     borderRadius: 4,
     windowWidth: Dimensions.get('window').width,
     windowHeight: Dimensions.get('window').height,
     statusBarHeight: getStatusBarHeight(),
-    translate: function (key) {
+    translate: (key) => {
         return translates[key];
     },
-    formatDate: function (date) {
+    formatDate: (date) => {
         return moment(date).format(dateFormat);
     },
-    formatYear: function (year) {
+    formatYear: (year) => {
         return moment(year, 'YYYY').format(yearFormat);
     },
     formatDateMonth: (dateMonth) => {
