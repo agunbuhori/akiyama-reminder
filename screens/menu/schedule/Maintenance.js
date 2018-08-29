@@ -69,8 +69,7 @@ export default class Maintenance extends Component {
                 return <Loading />
                 break;
             case 1:
-                var years = [0, 1, 2, 3, 4, 5, 6, 7];
-                var startYear = 2016;
+
                 return (
                     <Tabs renderTabBar={() => <ScrollableTab />}>
                         {
@@ -80,8 +79,18 @@ export default class Maintenance extends Component {
                                         <FlatList
                                             data={year.periodes}
                                             keyExtractor={(item, index) => index.toString()}
-                                            renderItem={() => 
-                                                <View style={styles.periodeItem}></View>
+                                            renderItem={(periode, index) => 
+                                                <Ripple style={[styles.periodeItem, {marginTop: parseInt(periode.index) == 0 ? 10 : 0}]}>
+                                                    <View style={styles.periodeNumberDate}>
+                                                        <View style={styles.periodeNumber}>
+                                                            <Text style={styles.periodeNumberText}>{periode.item.periode+global.translate("periode_text")}</Text>
+                                                        </View>
+                                                        <View style={styles.periodeDate}>
+                                                            <Text style={styles.periodeDateText}>{global.formatDateMonth(periode.item.date)}</Text>
+                                                        </View>
+                                                    </View>
+                                                    <View style={styles.periodeServices}></View>
+                                                </Ripple>
                                             }
                                         />
                                     </Tab>
@@ -122,8 +131,6 @@ export default class Maintenance extends Component {
                 <HeaderCustom title={global.translate('my_coupon')} />
                 <CouponSegment navigation={this.props.navigation} active="1" />
 
-                
-
                 {this._renderView()}
             </Container>
         );
@@ -140,6 +147,42 @@ const styles = StyleSheet.create({
     },
     periodeItem: {
         padding: 10,
-        backgroundColor: 'white'
+        marginLeft: 10,
+        marginRight: 10,
+        marginBottom: 10,
+        borderRadius: global.borderRadius,
+        backgroundColor: 'white',
+        borderWidth: global.borderWidth,
+        borderColor: global.borderColor
+    },
+    periodeNumberDate: {
+        width: '20%',
+    },
+    periodeNumber: {
+        height: 25,
+        backgroundColor: global.primaryColor,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderTopLeftRadius: global.borderRadius,
+        borderTopRightRadius: global.borderRadius
+    },
+    periodeNumberText: {
+        color: 'white',
+        fontWeight: 'bold'
+    },
+    periodeDate: {
+        height: 25,
+        backgroundColor: global.primaryColorLight,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderBottomLeftRadius: global.borderRadius,
+        borderBottomRightRadius: global.borderRadius,
+    },
+    periodeDateText: {
+        fontSize: 12,
+        fontWeight: 'bold'
+    },
+    periodeServices: {
+        
     }
-})
+});

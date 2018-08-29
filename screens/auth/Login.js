@@ -68,18 +68,20 @@ export default class Login extends Component {
         return (
             <Container style={styles.container}>
                 <StatusBar barStyle="light-content"/>
-
+            
                 <Form>
+                    <Image style={styles.logo} source={require('../../assets/images/logo.png')}/>
+
                     {this._renderErrorText()}
                     {this._renderLoadingIndicator()}
 
                     <Item rounded style={styles.loginInput}>
-                        <Input autoCapitalize="none" onChangeText={(username) => this.setState({ username: username })}/>
+                        <Input autoCapitalize="none" placeholder={global.translate("username")} onChangeText={(username) => this.setState({ username: username })}/>
                         <Icon type="Feather" name="user"/>
                     </Item>
 
                     <Item rounded style={styles.loginInput}>
-                        <Input secureTextEntry={true} onChangeText={(password) => this.setState({ password: password })} />
+                        <Input placeholder={global.translate("password")} secureTextEntry={true} onChangeText={(password) => this.setState({ password: password })} />
                         <Icon type="Feather" name="lock" />
                     </Item>
 
@@ -103,6 +105,10 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         paddingLeft: 15,
         paddingRight: 15
+    },
+    logo: {
+        alignSelf: 'center',
+        marginBottom: 20
     },
     errorText: {
         alignSelf: 'center',

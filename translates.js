@@ -7,5 +7,8 @@ export default translates = {
     event: "イベント",
     login: "ログイン",
     take: "取る",
-    expired: "に期限切れ"
+    expired: "に期限切れ",
+    username: "ユーザー名",
+    password: "パスワード",
+    periode_text: "ヶ月"
 }
