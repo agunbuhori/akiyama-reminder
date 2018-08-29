@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { StyleSheet, View, StatusBar } from 'react-native';
 
 import { createSwitchNavigator } from 'react-navigation';

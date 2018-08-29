@@ -8,7 +8,7 @@ const yearFormat = 'YYYY年';
 const dateMonthFormat = 'MM月DD日';
 
 export default global = {
-    baseUrl: "http://192.168.0.112/carnotif/public/",
+    baseUrl: "http://localhost:8080/carnotif/public/",
     primaryColor: '#11115C',
     primaryColorDark: '#00004B',
     primaryColorLight: '#CACAE0',

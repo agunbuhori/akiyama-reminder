@@ -103,7 +103,8 @@ const styles = StyleSheet.create({
     },
     eventWrapper: {
         backgroundColor: 'white',
-        borderRadius: global.borderRadius,
+        borderRadius: 10,
+        overflow: 'hidden',
         borderColor: global.borderColor,
         borderWidth: global.borderWidth
     },

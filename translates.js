@@ -11,5 +11,20 @@ export default translates = {
     username: "ユーザー名",
     password: "パスワード",
     periode_text: "ヶ月",
-    more: 'もっと'
+    more: 'もっと',
+    profile: 'プロフィール',
+    my_car: '私の車',
+    store: '格納',
+    help: '助けて',
+    fullname: '氏名',
+    birthday: '性別',
+    gender: 'お誕生日',
+    address: '住所',
+    car_type: '車種',
+    buy_date: '購入日',
+    male: '男性',
+    female: '女性',
+    maintenance: 'メンテナンス',
+    my_booking: 'マイ予約',
+    history: '履歴'
 }

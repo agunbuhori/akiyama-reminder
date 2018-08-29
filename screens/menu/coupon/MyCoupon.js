@@ -14,7 +14,7 @@ import axios from 'axios';
 import Loading from '../../status/Loading';
 import Error from '../../status/Error';
 
-export default class CouponList extends Component {
+export default class MyCoupon extends Component {
     constructor(props) {
         super(props);
 
@@ -116,7 +116,7 @@ export default class CouponList extends Component {
     render() {
         return (
             <Container style={styles.container}>
-                <HeaderCustom title={global.translate('my_coupon')} />
+                <HeaderCustom title={global.translate('coupon')} />
                 <CouponSegment navigation={this.props.navigation} active="2" />
 
                 <Modal 

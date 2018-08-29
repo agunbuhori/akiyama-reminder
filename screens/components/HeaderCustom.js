@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, StatusBar } from 'react-native';
-import { Header, Body, Title } from 'native-base';
+import { Header, Body, Title, Left, Button } from 'native-base';
 import global from '../../global';
 
 export default class HeaderCustom extends Component {

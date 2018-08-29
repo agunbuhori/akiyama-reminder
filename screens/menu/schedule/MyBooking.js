@@ -22,7 +22,7 @@ import axios from 'axios';
 import Loading from '../../status/Loading';
 import Error from '../../status/Error';
 
-export default class Maintenance extends Component {
+export default class MyBooking extends Component {
     constructor(props) {
         super(props);
 
@@ -59,10 +59,6 @@ export default class Maintenance extends Component {
         });
     }
 
-    handleRefresh = () => {
-        this._getData();
-    }
-
     _renderView() {
         switch (this.state.internetStatus) {
             case 0:
@@ -71,37 +67,7 @@ export default class Maintenance extends Component {
             case 1:
 
                 return (
-                    <Tabs renderTabBar={() => <ScrollableTab />}>
-                        {
-                            this.state.data.map((year, index) => {
-                                return (
-                                    <Tab heading={global.formatYear(year.year)} key={index} style={{backgroundColor: 'transparent'}}>
-                                        <FlatList
-                                            data={year.periodes}
-                                            keyExtractor={(item, index) => index.toString()}
-                                            renderItem={(periode, index) => 
-                                                <Ripple style={[styles.periodeItem, {marginTop: parseInt(periode.index) == 0 ? 10 : 0}]}>
-                                                    <View style={styles.periodeNumberDate}>
-                                                        <View style={styles.periodeNumber}>
-                                                            <Text style={styles.periodeNumberText}>{periode.item.periode+global.translate("periode_text")}</Text>
-                                                        </View>
-                                                        <View style={styles.periodeDate}>
-                                                            <Text style={styles.periodeDateText}>{global.formatDateMonth(periode.item.date)}</Text>
-                                                        </View>
-                                                    </View>
-                                                    <View style={styles.periodeServices}>
-                                                        {periode.item.services.map((service, index) => {
-                                                            return <Text key={index}>{service}</Text>
-                                                        })}
-                                                    </View>
-                                                </Ripple>
-                                            }
-                                        />
-                                    </Tab>
-                                );
-                            })
-                        }
-                    </Tabs>
+                    <View></View>
                 );
                 break;
             case 2:
@@ -109,33 +75,15 @@ export default class Maintenance extends Component {
         }
     }
 
-    takeCoupon = async (couponId) => {
-        await AsyncStorage.getItem('userToken').then(token => {
-            if (token !== null)
-                axios({
-                    method: 'post',
-                    url: global.baseUrl + 'api/v1/get-coupon',
-                    data: JSON.stringify({ id: couponId }),
-                    headers: {
-                        'Authorization': 'bearer ' + token,
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json'
-                    },
-                }).then(response => {
-                    this.handleRefresh();
-                }).catch(error => {
-                    this.setState({ internetStatus: 2, refreshing: false });
-                });
-        });
-    }
+
 
     render() {
         return (
             <Container style={styles.container}>
                 <HeaderCustom title={global.translate('schedule')} />
-                <CouponSegment navigation={this.props.navigation} active="1" />
+                <CouponSegment navigation={this.props.navigation} active="2" />
 
-                {this._renderView()}
+
             </Container>
         );
     }
@@ -146,10 +94,12 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: 'transparent'
     },
+    content: {
+
+    },
     periodeItem: {
         padding: 10,
         marginLeft: 10,
-        overflow: 'hidden',
         marginRight: 10,
         marginBottom: 10,
         borderRadius: global.borderRadius,
@@ -166,7 +116,7 @@ const styles = StyleSheet.create({
     },
     periodeNumber: {
         height: 25,
-        backgroundColor: global.secondaryColor,
+        backgroundColor: global.primaryColor,
         justifyContent: 'center',
         alignItems: 'center',
         borderTopLeftRadius: global.borderRadius,

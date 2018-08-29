@@ -11,14 +11,14 @@ export default class CouponSegment extends Component {
     render() {
         return (
             <Segment style={styles.segment}>
-                <Button style={styles.segmentButton} first active={this.props.active == "1"} onPress={() => this.props.navigation.navigate('CouponList')}>
-                    <Text style={styles.segmentText}>Maitenance</Text>
+                <Button style={styles.segmentButton} first active={this.props.active == "1"} onPress={() => this.props.navigation.navigate('Maintenance')}>
+                    <Text style={styles.segmentText}>{global.translate('maintenance')}</Text>
                 </Button>
-                <Button style={styles.segmentButton} active={this.props.active == "2"} onPress={() => this.props.navigation.navigate('CouponList')}>
-                    <Text style={styles.segmentText}>Booking</Text>
+                <Button style={styles.segmentButton} active={this.props.active == "2"} onPress={() => this.props.navigation.navigate('MyBooking')}>
+                    <Text style={styles.segmentText}>{global.translate('my_booking')}</Text>
                 </Button>
                 <Button style={styles.segmentButton} last active={this.props.active == "3"} onPress={() => this.props.navigation.navigate('MyCoupon')}>
-                    <Text style={styles.segmentText}>History</Text>
+                    <Text style={styles.segmentText}>{global.translate('history')}</Text>
                 </Button>
             </Segment>
         );

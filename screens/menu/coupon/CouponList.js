@@ -151,7 +151,7 @@ const styles = StyleSheet.create({
         padding: 10,
         borderWidth: global.borderWidth,
         borderColor: global.borderColor,
-        borderRadius: global.borderRadius,
+        borderRadius: 10,
     },
     imageWrapper: {
         width: '100%' - 20

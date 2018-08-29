@@ -69,9 +69,6 @@ const MenuNavigator = createBottomTabNavigator({
     }
 });
 
-MenuNavigator.navigationOptions = ({navigation}) => ({
-    header: null
-});
 
 const styles = StyleSheet.create({
     bottomTabIcon: {
