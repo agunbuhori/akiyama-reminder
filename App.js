@@ -1,16 +1,28 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, StatusBar } from 'react-native';
 
-import { createSwitchNavigator } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation';
+import transition from 'agunbuhori-rn-transition';
 
 import MenuNavigator from './screens/menu/MenuNavigator';
 import AuthNavigator from './screens/auth/AuthNavigator';
+import Reservation from './screens/menu/Reservation';
 
 import global from './global';
 
-const StackNavigator = createSwitchNavigator({
-  Menu: {screen: MenuNavigator},
-  Auth: {screen: AuthNavigator},
+const StackNavigator = createStackNavigator({
+  Auth: {screen: AuthNavigator, navigationOptions: {header: null}},
+  Menu: {screen: MenuNavigator, navigationOptions: {header: null}},
+  Reservation: {screen: Reservation, navigationOptions: {
+    title: global.translate('reservation'),
+    headerTintColor: 'white',
+    headerStyle: {
+      backgroundColor: global.primaryColor,
+      borderBottomColor: global.primaryColorDark
+    }
+  }}
+}, {
+  transitionConfig: transition
 });
 
 StackNavigator.navigationOptions = ({navigation}) => ({
@@ -21,7 +33,7 @@ export default class App extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <StatusBar style={{backgroundColor: global.primaryColor}}/>
+        <StatusBar barStyle="light-content" backgroundColor={global.primaryColor}/>
         <StackNavigator/>
       </View>
     );

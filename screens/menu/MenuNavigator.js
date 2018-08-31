@@ -31,7 +31,7 @@ const MenuNavigator = createBottomTabNavigator({
         navigationOptions: {
             tabBarLabel: global.translate('event'),
             tabBarIcon: ({ tintColor }) => (
-                <MenuIcon tintColor={tintColor} icon="star" />
+                <MenuIcon tintColor={tintColor} icon="credit-card" />
             )
         }
     },
@@ -40,7 +40,7 @@ const MenuNavigator = createBottomTabNavigator({
         navigationOptions: {
             tabBarLabel: global.translate('coupon'),
             tabBarIcon: ({ tintColor }) => (
-                <MenuIcon tintColor={tintColor} icon="credit-card" />
+                <MenuIcon tintColor={tintColor} icon="star" />
             )
         }
     },

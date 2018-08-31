@@ -26,5 +26,8 @@ export default translates = {
     female: '女性',
     maintenance: 'メンテナンス',
     my_booking: 'マイ予約',
-    history: '履歴'
+    history: '履歴',
+    take_success: '成功する',
+    booking_now: '今すぐ予約',
+    reservation: '予約'
 }

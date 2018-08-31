@@ -51,7 +51,7 @@ export default class More extends Component {
             data: [],
             listMenus: [
                 { icon: 'account-circle', title: global.translate('profile'), navTarget: 'Profile' },
-                { icon: 'car-side', title: global.translate('my_car'), navTarget: 'Profile' },
+                { icon: 'car-side', title: global.translate('my_car'), navTarget: 'MyCar' },
                 { icon: 'garage', title: global.translate('store'), navTarget: 'Profile' },
                 { icon: 'help-circle', title: global.translate('help'), navTarget: 'Profile' },
             ]

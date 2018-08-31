@@ -2,9 +2,6 @@ import React, { Component } from 'react';
 import { StyleSheet, View, Text, AsyncStorage, FlatList, TouchableOpacity, Image } from 'react-native';
 import { Container, Content, Button, Icon } from 'native-base';
 
-import HeaderCustom from '../../components/HeaderCustom';
-
-
 import global from '../../../global';
 import axios from 'axios';
 

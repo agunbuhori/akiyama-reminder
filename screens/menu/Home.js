@@ -4,10 +4,12 @@ import {
     View,
     AsyncStorage,
     Text,
-    Image
+    Image,
+    TouchableOpacity
 } from 'react-native';
-import { Container, Content } from 'native-base';
+import { Container, Content, Icon } from 'native-base';
 import SImage from 'react-native-scalable-image';
+import Ripple from 'react-native-material-ripple';
 
 import global from '../../global';
 import axios from 'axios';
@@ -55,6 +57,7 @@ export default class Home extends Component {
             case 1:
                 return (
                     <View>
+                        <Image height={global.windowHeight} style={styles.backgroundImage} source={{ uri: this.state.data.background }} />
                         <SImage width={global.windowWidth - 120} style={styles.carImage} source={{ uri: this.state.data.car }} />
                         <View style={styles.panel}>
                             <View style={styles.nextMaintenance}>
@@ -62,8 +65,10 @@ export default class Home extends Component {
                                 <Text style={styles.nextMaintenanceDate}>{global.formatDate(this.state.data.next_schedule)}</Text>
                             </View>
 
-                            <View style={styles.contact}>
-                            </View>
+                            <Ripple style={styles.contact} onPress={() => this.props.navigation.navigate('Reservation')}>
+                                <Icon type="Feather" name="phone"/>
+                                <Text style={{fontSize: 10, marginTop: 5}}>{global.translate('booking_now')}</Text>
+                            </Ripple>
                         </View>
                     </View>
                 );
@@ -72,18 +77,10 @@ export default class Home extends Component {
                 return <Error/>
         }
     }
-
-    _renderBackgroundImage() {
-        if (this.state.internetStatus === 1)
-            return <Image height={global.windowHeight} style={styles.backgroundImage} source={{ uri: this.state.data.background }} />;
-                
-    }
     
-
     render() {
         return (
             <Container>
-                {this._renderBackgroundImage()}
                 {this._renderView()}
             </Container>
         );
@@ -110,10 +107,21 @@ const styles = StyleSheet.create({
         position: 'absolute',
         backgroundColor: 'rgba(255, 255, 255, 0.9)',
         top: global.statusBarHeight + 10,
-        alignSelf: 'center'
+        alignSelf: 'center',
+        zIndex: 99,
+        flexDirection: 'row',
+        overflow: 'hidden'
     },
     nextMaintenance: {
-        padding: 15
+        padding: 15,
+        width: '75%'
+    },
+    contact: {
+        width: '25%',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderLeftWidth: 0.5,
+        borderLeftColor: global.borderColor,
     },
     nextMaintenanceText: {
 

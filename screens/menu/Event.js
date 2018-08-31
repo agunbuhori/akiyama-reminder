@@ -23,7 +23,8 @@ export default class Event extends Component {
 
         this.state = {
             internetStatus: 0,
-            data: []
+            data: [],
+            refreshing: false
         }
     }
 
@@ -32,6 +33,7 @@ export default class Event extends Component {
     }
 
     _getData = async () => {
+        
         await AsyncStorage.getItem('userToken').then(token => {
             axios({
                 method: 'get',
@@ -42,11 +44,16 @@ export default class Event extends Component {
                     'Content-Type': 'application/json'
                 }
             }).then(response => {
-                this.setState({ internetStatus: 1, data: response.data.data });
+                this.setState({ internetStatus: 1, data: response.data.data, refreshing: false });
             }).catch(error => {
                 this.setState({ internetStatus: 2 });
             });
         });
+    }
+
+    handleRefresh = () => {
+        this.setState({ refreshing: true });
+        this._getData();
     }
 
     _renderView() {
@@ -56,11 +63,14 @@ export default class Event extends Component {
                 break;
             case 1:
                 return (
-                    <Content style={{padding: 10}}>
+
                         <FlatList
                             data={this.state.data}
+                            extraData={this.state}
+                            refreshing={this.state.refreshing}
+                            onRefresh={() => this.handleRefresh()}
                             renderItem={(event) => 
-                                <View style={[styles.eventItem, {marginBottom: parseInt(event.index) == this.state.data.length - 1 ? 20 : 10}]}>
+                                <View style={[styles.eventItem, {marginTop: event.index == 0 ? 10 : 0}]}>
                                     <View style={styles.eventWrapper}>
                                         <Image width={global.windowWidth - 20} source={{ uri: event.item.picture }} />
                                         <View style={styles.eventDate}>
@@ -75,7 +85,6 @@ export default class Event extends Component {
                             }
                             keyExtractor={(item, index) => index.toString()}
                         />
-                    </Content>
                 );
                 break;
             case 2:
@@ -99,14 +108,17 @@ const styles = StyleSheet.create({
         backgroundColor: 'transparent'
     },
     eventItem: {
-        marginBottom: 10
+        
     },
     eventWrapper: {
         backgroundColor: 'white',
         borderRadius: 10,
         overflow: 'hidden',
         borderColor: global.borderColor,
-        borderWidth: global.borderWidth
+        borderWidth: global.borderWidth,
+        marginLeft: 10,
+        marginRight: 10,
+        marginBottom: 10
     },
     eventDate: {
         height: 30,

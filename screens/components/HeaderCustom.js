@@ -11,7 +11,7 @@ export default class HeaderCustom extends Component {
     render() {
         return (
             <Header hasSegment style={styles.header}>
-                <StatusBar barStyle="light-content"/>
+                <StatusBar barStyle="light-content" backgroundColor={global.primaryColor}/>
                 <Body>
                     <Title style={{color: 'white'}}>{this.props.title}</Title>
                 </Body>

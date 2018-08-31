@@ -44,15 +44,15 @@ export default class MyBooking extends Component {
             if (token !== null)
                 axios({
                     method: 'get',
-                    url: global.baseUrl + 'api/v1/my-schedules',
+                    url: global.baseUrl + 'api/v1/my-book',
                     headers: {
                         'Authorization': 'bearer ' + token,
                         'Accept': 'application/json',
                         'Content-Type': 'application/json'
                     }
                 }).then(response => {
+                    console.log(response.data);
                     this.setState({ internetStatus: 1, data: response.data, refreshing: false });
-                    // alert(JSON.stringify(response.data));
                 }).catch(error => {
                     this.setState({ internetStatus: 2, refreshing: false });
                 });
@@ -67,7 +67,30 @@ export default class MyBooking extends Component {
             case 1:
 
                 return (
-                    <View></View>
+                    <View>
+                        <View style={styles.booking}>
+                            <View style={styles.bookingPeriod}>
+                                <Text style={styles.bookingPeriodText}>{this.state.data.periode+global.translate('periode_text')}</Text>
+                            </View>
+
+                            <View style={styles.bookingDesc}>
+                                <View style={styles.bookingDate}>
+                                    <Text style={styles.bookingDateText}>{global.formatDate(this.state.data.date)+" "+global.formatTime(this.state.data.time)}</Text>
+                                </View>
+                            </View>
+                        </View>
+
+                        <View style={styles.booking2}>
+                            <View style={styles.bookingStore}>
+                                <Text style={styles.bookingStoreText}>{this.state.data.store}</Text>
+                            </View>
+                            <View style={styles.bookingService}>
+                                {this.state.data.services.map((service, index) => {
+                                    return <Text key={index} style={styles.serviceText}>{'\u2022'} {service}</Text>
+                                })}
+                            </View>
+                        </View>
+                    </View>
                 );
                 break;
             case 2:
@@ -83,7 +106,7 @@ export default class MyBooking extends Component {
                 <HeaderCustom title={global.translate('schedule')} />
                 <CouponSegment navigation={this.props.navigation} active="2" />
 
-
+                {this._renderView()}
             </Container>
         );
     }
@@ -94,52 +117,67 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: 'transparent'
     },
-    content: {
-
-    },
-    periodeItem: {
-        padding: 10,
-        marginLeft: 10,
-        marginRight: 10,
-        marginBottom: 10,
-        borderRadius: global.borderRadius,
-        backgroundColor: 'white',
-        borderWidth: global.borderWidth,
+    booking: {
+        borderRadius: 10,
+        overflow: 'hidden',
+        margin: 10,
+        marginBottom: 0,
+        flexDirection: 'row',
         borderColor: global.borderColor,
-        flexDirection: 'row'
+        borderWidth: global.borderWidth
     },
-    periodeNumberDate: {
-        width: '20%',
-        paddingRight: 10,
-        borderRightWidth: 1,
-        borderRightColor: global.borderColor
+    booking2: {
+        borderRadius: 10,
+        overflow: 'hidden',
+        margin: 10,
+        marginBottom: 0,
+        borderColor: global.borderColor,
+        borderWidth: global.borderWidth
     },
-    periodeNumber: {
-        height: 25,
-        backgroundColor: global.primaryColor,
+    bookingPeriod: {
         justifyContent: 'center',
         alignItems: 'center',
-        borderTopLeftRadius: global.borderRadius,
-        borderTopRightRadius: global.borderRadius
+        backgroundColor: global.secondaryColor,
+        width: '25%'
     },
-    periodeNumberText: {
-        color: 'white',
-        fontWeight: 'bold'
+    bookingPeriodText: {
+        fontSize: 23,
+        fontWeight: 'bold',
+        color: 'white'
     },
-    periodeDate: {
-        height: 25,
-        backgroundColor: global.primaryColorLight,
+    bookingDesc: {
+        width: '75%',
+        padding: 15,
+        backgroundColor: 'white'
+    },
+    bookingDateText: {
+        fontSize: 20,
+        alignSelf: 'center',
+        fontWeight: 'bold',
+        color: global.primaryColor
+    },
+    bookingStore: {
+        height: 40,
+        width: '100%',
+        backgroundColor: '#fdfdfd',
         justifyContent: 'center',
         alignItems: 'center',
-        borderBottomLeftRadius: global.borderRadius,
-        borderBottomRightRadius: global.borderRadius,
+        borderBottomWidth: global.borderWidth,
+        borderBottomColor: global.borderColor
     },
-    periodeDateText: {
-        fontSize: 11,
+    bookingStoreText: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        color: global.fontColor
+    },
+    bookingService: {
+        padding: 10,
+        backgroundColor: '#fff',
+        width: '100%'
+    },
+    serviceText: {
+        fontSize: 14,
         fontWeight: 'bold'
-    },
-    periodeServices: {
-        width: '80%',
-        paddingLeft: 10,
     }
+
 });

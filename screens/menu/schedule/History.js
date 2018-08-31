@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, AsyncStorage, FlatList, TouchableOpacity } from 'react-native';
-import { 
-    Container, 
-    Content, 
-    Button, 
+import {
+    Container,
+    Content,
+    Button,
     Icon,
-    Tab, 
-    Tabs, 
-    ScrollableTab 
+    Tab,
+    Tabs,
+    ScrollableTab
 } from 'native-base';
 import Image from 'react-native-scalable-image';
 import Modal from 'react-native-modal';
@@ -44,7 +44,7 @@ export default class Maintenance extends Component {
             if (token !== null)
                 axios({
                     method: 'get',
-                    url: global.baseUrl + 'api/v1/my-schedules',
+                    url: global.baseUrl + 'api/v1/my-histories',
                     headers: {
                         'Authorization': 'bearer ' + token,
                         'Accept': 'application/json',
@@ -71,37 +71,41 @@ export default class Maintenance extends Component {
             case 1:
 
                 return (
-                    <Tabs renderTabBar={() => <ScrollableTab />}>
-                        {
-                            this.state.data.map((year, index) => {
-                                return (
-                                    <Tab heading={global.formatYear(year.year)} key={index} style={{backgroundColor: 'transparent'}}>
-                                        <FlatList
-                                            data={year.periodes}
-                                            keyExtractor={(item, index) => index.toString()}
-                                            renderItem={(periode, index) => 
-                                                <Ripple style={[styles.periodeItem, {marginTop: parseInt(periode.index) == 0 ? 10 : 0}]}>
-                                                    <View style={styles.periodeNumberDate}>
-                                                        <View style={styles.periodeNumber}>
-                                                            <Text style={styles.periodeNumberText}>{periode.item.periode+global.translate("periode_text")}</Text>
-                                                        </View>
-                                                        <View style={styles.periodeDate}>
-                                                            <Text style={styles.periodeDateText}>{global.formatDateMonth(periode.item.date)}</Text>
-                                                        </View>
+                    <Content>
+                        {this.state.data.map((year, index) => {
+                            return (
+                                <View key={index}>
+                                    <View style={styles.year}>
+                                        <Text style={styles.yearText}>{global.formatYear(year.year)}</Text>
+                                    </View>
+
+                                    <FlatList
+                                        data={year.periodes}
+                                        keyExtractor={(item, index) => index.toString()}
+                                        renderItem={(periode, index) =>
+                                            <Ripple style={[styles.periodeItem, { marginTop: parseInt(periode.index) == 0 ? 10 : 0 }]}>
+                                                <View style={styles.periodeNumberDate}>
+                                                    <View style={styles.periodeNumber}>
+                                                        <Text style={styles.periodeNumberText}>{periode.item.periode + global.translate("periode_text")}</Text>
                                                     </View>
-                                                    <View style={styles.periodeServices}>
-                                                        {periode.item.services.map((service, index) => {
-                                                            return <Text style={styles.serviceText} key={index}>{'\u2022'} {service}</Text>
-                                                        })}
+                                                    <View style={styles.periodeDate}>
+                                                        <Text style={styles.periodeDateText}>{global.formatDateMonth(periode.item.date)}</Text>
                                                     </View>
-                                                </Ripple>
-                                            }
-                                        />
-                                    </Tab>
-                                );
-                            })
-                        }
-                    </Tabs>
+                                                </View>
+                                                <View style={styles.periodeServices}>
+                                                    {periode.item.services.map((service, index) => {
+                                                        return <Text style={styles.serviceText} key={index}>{'\u2022'} {service}</Text>
+                                                    })}
+                                                </View>
+                                            </Ripple>
+                                        }
+                                    />
+                                </View>
+                            )
+                        })}
+                        
+                    </Content>
+                    
                 );
                 break;
             case 2:
@@ -133,7 +137,7 @@ export default class Maintenance extends Component {
         return (
             <Container style={styles.container}>
                 <HeaderCustom title={global.translate('schedule')} />
-                <CouponSegment navigation={this.props.navigation} active="1" />
+                <CouponSegment navigation={this.props.navigation} active="3" />
 
                 {this._renderView()}
             </Container>
@@ -174,6 +178,16 @@ const styles = StyleSheet.create({
     },
     periodeNumberText: {
         color: 'white',
+        fontWeight: 'bold'
+    },
+    year: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 15
+    },
+    yearText: {
+        color: '#666',
+        fontSize: 20,
         fontWeight: 'bold'
     },
     periodeDate: {

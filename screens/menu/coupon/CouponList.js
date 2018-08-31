@@ -46,6 +46,7 @@ export default class CouponList extends Component {
     }
 
     handleRefresh = () => {
+        this.setState({refreshing: true});
         this._getData();
     }
 
@@ -56,36 +57,34 @@ export default class CouponList extends Component {
                 break;
             case 1:
                 return (
-                    <Content style={styles.content}>
-                        <FlatList
-                            data={this.state.data}
-                            numColumns={2}
-                            extraData={this.state}
-                            refreshing={this.state.refreshing}
-                            onRefresh={this.handleRefresh}
-                            renderItem={(coupon, index) =>
-                                <View style={[styles.couponItem]}>
-                                    <View style={styles.touchableCupon}>
-                                        <View style={styles.imageWrapper}>
-                                            <Image style={styles.couponImage} source={{ uri: coupon.item.picture }} />
-                                        </View>
+                    <FlatList
+                        data={this.state.data}
+                        numColumns={2}
+                        extraData={this.state}
+                        refreshing={this.state.refreshing}
+                        onRefresh={() => this.handleRefresh()}
+                        renderItem={(coupon, index) =>
+                            <View style={[styles.couponItem]}>
+                                <View style={styles.touchableCupon}>
+                                    <View style={styles.imageWrapper}>
+                                        <Image style={styles.couponImage} source={{ uri: coupon.item.picture }} />
+                                    </View>
 
-                                        <View style={styles.couponContent}>
-                                            <Text style={styles.couponName}>{coupon.item.name}</Text>
-                                            <Text style={styles.couponDesc}>{coupon.item.desc}</Text>
-                                        </View>
+                                    <View style={styles.couponContent}>
+                                        <Text style={styles.couponName}>{coupon.item.name}</Text>
+                                        <Text style={styles.couponDesc}>{coupon.item.desc}</Text>
+                                    </View>
 
-                                        <View style={styles.couponButton}>
-                                            <Button block small primary onPress={() => this.takeCoupon(coupon.item.id)}>
-                                                <Text style={styles.getButtonText}>{global.translate('take')}</Text>
-                                            </Button>
-                                        </View>
+                                    <View style={styles.couponButton}>
+                                        <Button block small primary onPress={() => this.takeCoupon(coupon.item.id)}>
+                                            <Text style={styles.getButtonText}>{global.translate('take')}</Text>
+                                        </Button>
                                     </View>
                                 </View>
-                            }
-                            keyExtractor={(item, index) => index.toString()}
-                        />
-                    </Content>
+                            </View>
+                        }
+                        keyExtractor={(item, index) => index.toString()}
+                    />
                 );
                 break;
             case 2:
@@ -94,6 +93,7 @@ export default class CouponList extends Component {
     }
 
     takeCoupon = async (couponId) => {
+        this.setState({internetStatus: 0});
         await AsyncStorage.getItem('userToken').then(token => {
             if (token !== null)
                 axios({
@@ -107,6 +107,7 @@ export default class CouponList extends Component {
                     },
                 }).then(response => {
                     this.handleRefresh();
+                    alert(global.translate('take_success'));
                 }).catch(error => {
                     this.setState({ internetStatus: 2, refreshing: false });
                 });
@@ -118,8 +119,9 @@ export default class CouponList extends Component {
             <Container style={styles.container}>
                 <HeaderCustom title={global.translate('coupon')} />
                 <CouponSegment navigation={this.props.navigation} active="1" />
-
-                {this._renderView()}
+                <Container style={styles.content}>
+                    {this._renderView()}
+                </Container>
             </Container>
         );
     }
@@ -134,7 +136,8 @@ const styles = StyleSheet.create({
         paddingTop: 10,
         paddingBottom: 10,
         paddingLeft: 5,
-        paddingRight: 5
+        paddingRight: 5,
+        backgroundColor: 'transparent'
     },
     couponItem: {
         marginBottom: 10,

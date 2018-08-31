@@ -11,6 +11,8 @@ import {
 import { 
     Container, Form, Item, Input, Icon, Button 
 } from 'native-base';
+import ImageScallable from 'react-native-scalable-image';
+
 import global from '../../global';
 import translates from '../../translates';
 import axios from 'axios';
@@ -70,7 +72,8 @@ export default class Login extends Component {
                 <StatusBar barStyle="light-content"/>
             
                 <Form>
-                    <Image style={styles.logo} source={require('../../assets/images/logo.png')}/>
+                    <ImageScallable style={styles.logo} width={120} source={require('../../assets/images/logo.png')}/>
+                    <ImageScallable style={styles.appname} width={150} source={require('../../assets/images/appname.png')}/>
 
                     {this._renderErrorText()}
                     {this._renderLoadingIndicator()}
@@ -108,7 +111,10 @@ const styles = StyleSheet.create({
     },
     logo: {
         alignSelf: 'center',
-        marginBottom: 20
+    },
+    appname: {
+        alignSelf: 'center',
+        marginBottom: 40
     },
     errorText: {
         alignSelf: 'center',
